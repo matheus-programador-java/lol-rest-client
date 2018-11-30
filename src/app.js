@@ -1,5 +1,16 @@
 const { findSummoner, findMatch } = require('../lol-services/services');
 
+/*
+    git add - ADICIONA ARQUIVOS
+    git commit - ENVIA P/ REPOSITORIO LOCAL
+    git push - ENVIA P/ REPOSITORIO REMOTO
+    git pull - RECEBE ATUALIZAÇÃO
+
+    git checkout -b "nome-do-branch"(USAR OS 3 COMANDOS DO COMMIT, PARA ENVIAR. 
+                                    E CRIAR UM PULL REQUEST NO GITHUB)
+    
+*/
+
 const app = new Vue({
     el: '#app',
 
