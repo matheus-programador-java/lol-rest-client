@@ -12,9 +12,18 @@
 <body class="bg-dark text-white container-fluid">
     <div id="app">
         <br>
-        <div>
-            <input class="form-control" placeholder="Digite o nome do invocador..." v-model="nomeInvocador"
-            type="text" name="nomeInvocador" id="inTxtNome">
+        <div class="row">
+            <div class="col-sm-8">
+                <input class="form-control" placeholder="Digite o nome do invocador..." v-model="nomeInvocador"
+                type="text" name="nomeInvocador" id="inTxtNome">
+            </div>
+            <!-- <div class="checkbox, col-sm-2">
+                    <label><input type="checkbox" value="">Lembrar</label>
+                  </div> -->
+            <div class="col-sm-2">
+                <input type="checkbox" name="rmbLoginCheck" id="" v-model="rememberLoginCheck">
+                <label for="rmbLoginCheck">Lembrar</label>
+            </div>
         </div>
         <br>
         <div class="row-fluid">

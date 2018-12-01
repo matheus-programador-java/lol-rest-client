@@ -16,19 +16,31 @@ const app = new Vue({
 
     data: {
         nomeInvocador: '',
-        summoner: ''
+        summoner: '',
+        autoFindMatch : true,
+        rememberLogin : true,
+        rememberLoginCheck : true,
     },
 
     methods: {
         teste: function () {
             findSummoner.get(this.nomeInvocador).then(response => {
 
-                this.summoner = response.request.responseText;
-                console.log(this.summoner);
+                let responseText = response.request.responseText;
+                let responseJson = JSON.parse(responseText);
+                
+                this.summoner = responseJson;
+                
+                if(this.autoFindMatch){
+                    console.log(responseJson.id);
+                }
+                //console.log(this.summoner);
             }).catch(response => {
 
                 this.summoner = response.request.responseText;
                 console.log(response);
+            }).catch(err => {
+                console.log(err);
             });
         },
 
