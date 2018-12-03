@@ -1,9 +1,9 @@
 const { findSummoner, findMatch } = require('../lol-services/services');
-
+const localStorage = window.localStorage;
 /*
     git add - ADICIONA ARQUIVOS
     git commit - ENVIA P/ REPOSITORIO LOCAL
-    git push - ENVIA P/ REPOSITORIO REMOTO
+    git push -m "MENSAGEM DO COMMIT" - ENVIA P/ REPOSITORIO REMOTO
     git pull - RECEBE ATUALIZAÇÃO
 
     git checkout -b "nome-do-branch"(USAR OS 3 COMANDOS DO COMMIT, PARA ENVIAR. 
@@ -17,44 +17,61 @@ const app = new Vue({
     data: {
         nomeInvocador: '',
         summoner: '',
-        autoFindMatch : true,
-        rememberLogin : true,
-        rememberLoginCheck : true,
+        match:'',
+        autoFindMatch: true,
+        message:'',
     },
 
     methods: {
-        teste: function () {
+
+        remember: function () {
+            let rememberJson  = JSON.parse(localStorage.getItem('summonerName'));
+           
+            if(rememberJson != null)
+                this.nomeInvocador = rememberJson.content;
+        },
+
+        forgetSummonerName: function(){
+            localStorage.removeItem('summonerName');
+        },
+
+        saveSummonerName: function(){
+            let rememberJson = { "content": this.nomeInvocador };
+            localStorage.setItem('summonerName', JSON.stringify(rememberJson));
+        },
+
+        findSummoner: function () {
             findSummoner.get(this.nomeInvocador).then(response => {
 
-                let responseText = response.request.responseText;
-                let responseJson = JSON.parse(responseText);
-                
-                this.summoner = responseJson;
-                
-                if(this.autoFindMatch){
-                    console.log(responseJson.id);
-                }
-                //console.log(this.summoner);
+                this.summoner = JSON.parse(response.request.response);
+                this.findMatch();
+                console.log(this.summoner);
             }).catch(response => {
-
-                this.summoner = response.request.responseText;
                 console.log(response);
             }).catch(err => {
                 console.log(err);
             });
         },
 
-        teste2: function () {
-            findMatch.get()
-        },
+        findMatch: function () {
+            let idSummoner = this.summoner.id;
+            findMatch.get(idSummoner).then(response =>{
 
-        sleep: function (milliseconds) {
-            let start = new Date().getTime();
-            for (var i = 0; i < 1e7; i++) {
-                if ((new Date().getTime() - start) > milliseconds) {
-                    break;
-                }
-            }
-        }
-    }
+                this.match = JSON.parse(response.request.response);
+                this.message = 'Partida encontrada!'
+                console.log(this.match);
+            }).catch(response =>{
+                //ERROR CODE 403. SUMMONER NOT IN A GAME
+                if(response.response.status == 403 || response.response.status == 404)
+                this.message = 'Invocador não está em uma partida!\n Error Message:' + response;
+                console.log(response);
+            }).catch(err =>{
+                console.log(err);
+            });
+        },
+    },
+
+    mounted: function(){//FUNÇÃO MOUNTED SEMPRE NO FINAL DO APP
+       this.remember();
+    },
 });

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 
-<body class="bg-dark text-white container-fluid">
-    <div id="app">
+<body class="bg-dark text-white">
+    <div id="app" class="container-fluid">
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -21,19 +21,26 @@
                     <label><input type="checkbox" value="">Lembrar</label>
                   </div> -->
             <div class="col-sm-2">
-                <input type="checkbox" name="rmbLoginCheck" id="" v-model="rememberLoginCheck">
-                <label for="rmbLoginCheck">Lembrar</label>
+                    <button class="btn btn-success" 
+                    style="width: 100%" @click="saveSummonerName()">Lembrar</button>
+            </div>
+            <div class="col-sm-2">
+                    <button class="btn btn-danger" 
+                    style="width: 100%" @click="forgetSummonerName()">Esquecer</button>
             </div>
         </div>
         <br>
         <div class="row-fluid">
             <div class="spam2 offset10">
-                <button class="btn btn-info" style="column-span: all" @click="teste()">Clique me</button>
+                <button class="btn btn-info" style="column-span: all" @click="findSummoner()">Clique me</button>
             </div>
         </div>
         <hr>
-        <p>{{summoner}}</p>
-        
+        <p>Messangem: {{message}}</p>
+        <hr>
+        <p>Invocador: {{summoner}}</p>
+        <hr>
+        <p>Partida: {{match}}</p>
     </div>
 
     <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
