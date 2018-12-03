@@ -5,7 +5,7 @@ const findSummoner = axios.create({
     //PASSAR SUMMONER NAME  P/ GET
     baseURL: 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/',
     params: {
-        api_key: "RGAPI-61cf74bd-c2b1-4dd3-aa31-dffcb8bd078d"
+        api_key: "YOUR API KEY. SEE https://developer.riotgames.com/ FOR MORE INFORMATIONS!"
     },
 
     transformResponse: [function (data) {
@@ -20,7 +20,7 @@ const findMatch = axios.create({
     //PASSAR SUMMONER ID  P/ GET
     baseURL: 'https://br1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/',
     params: {
-        api_key: "RGAPI-61cf74bd-c2b1-4dd3-aa31-dffcb8bd078d"
+        api_key: "YOUR API KEY. SEE https://developer.riotgames.com/ FOR MORE INFORMATIONS!"
     },
 
     transformResponse: [function (data) {
